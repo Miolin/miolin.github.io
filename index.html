@@ -11,6 +11,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="KDS">
+    <script type="application/javascript" src="google-map-utils.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -27,5 +28,7 @@
     <script type="application/javascript" src="composeApp.js"></script>
 </head>
 <body>
+<canvas id="ComposeTarget"></canvas>
+<div id="components"></div>
 </body>
 </html>
