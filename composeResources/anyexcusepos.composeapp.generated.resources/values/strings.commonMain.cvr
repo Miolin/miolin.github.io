@@ -1,6 +1,6 @@
 version:0
-plurals|time_hours|ONE:JWQgaG91cg==,OTHER:JWQgaG91cnM=
-plurals|time_minutes|ONE:JWQgbWlu,OTHER:JWQgbWlucw==
+plurals|time_hours|ONE:JTEkcyBob3Vy,OTHER:JTEkcyBob3Vycw==
+plurals|time_minutes|ONE:JTEkcyBtaW4=,OTHER:JTEkcyBtaW5z
 string|ASSIGN_DRIVER_SCREEN_TITLE|QXNzaWduIGRyaXZlcg==
 string|BASKET_SCREEN_AWAY_BUTTON|QXdheQ==
 string|BASKET_SCREEN_CHECKOUT_BUTTON|Q2hlY2tvdXQ=
@@ -439,6 +439,7 @@ string|basket_cant_be_empty|QmFza2V0IGNhblwndCBiZSBlbXB0eQ==
 string|block_user|QmxvY2sgdXNlcg==
 string|blocked|QmxvY2tlZA==
 string|book_table|Qm9vayB0YWJsZQ==
+string|booking_date_picker_title|U2VsZWN0IGRhdGU=
 string|booking_day|RGF5
 string|booking_offsetsTitle|T2Zmc2V0cyBmcm9tIGN1cnJlbnQgdGltZTo=
 string|booking_slotOrders|JENPVU5UJCBPcmRlcnM=
