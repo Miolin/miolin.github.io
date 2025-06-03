@@ -552,6 +552,7 @@ string|general_columnsLong|Q29sdW1ucyBjb3VudA==
 string|general_columnsShort|Qw==
 string|general_confirm|Q29uZmlybQ==
 string|general_delete|RGVsZXRl
+string|general_done|RG9uZQ==
 string|general_email|RW1haWw=
 string|general_error_blockingOperation|UGxlYXNlIHdhaXQgZm9yIHRoZSBwcmV2aW91cyBvcGVyYXRpb24gdG8gY29tcGxldGU=
 string|general_error_orderAmount_discountAndRemainingText|VGhlIGRpc2NvdW50IG9yIHBheW1lbnQgYW1vdW50IGV4Y2VlZHMgdGhlIHRvdGFsIHZhbHVlIG9mIHRoZSBvcmRlci4gUGxlYXNlIGFkanVzdCB0aGUgZGlzY291bnQsIHBvaW50cywgb3IgcGF5bWVudCBieSBpc3N1aW5nIGEgZnVsbCBvciBwYXJ0aWFsIHJlZnVuZCwgb3IgaW5jcmVhc2UgdGhlIG9yZGVyIHZhbHVlIGJ5IGFkZGluZyBtb3JlIGl0ZW1zLg==
@@ -580,10 +581,12 @@ string|general_holdItems_cookingStageReason|Q29va2luZyBzdGFnZQ==
 string|general_holdItems_title|SE9MRA==
 string|general_is_active|SXMgQWN0aXZl
 string|general_name|TmFtZQ==
+string|general_new|TmV3
 string|general_nextCellEdge|U2hvdyBlZGdlIG9mIG5leHQgY2VsbA==
 string|general_next|TmV4dA==
 string|general_none|Tm9uZQ==
 string|general_notSelected|Tm90IHNlbGVjdGVk
+string|general_note|Tm90ZQ==
 string|general_no|Tm8=
 string|general_ok|T0s=
 string|general_orderActive|QWN0aXZl
