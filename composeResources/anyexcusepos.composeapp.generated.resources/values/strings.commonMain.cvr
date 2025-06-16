@@ -79,12 +79,8 @@ string|CHECKOUT_HISTORY_SCREEN_PAYMENT_REFUND_BUTTON|UmVmdW5k
 string|CHECKOUT_HISTORY_SCREEN_TOTAL_PAID_LABEL|VG90YWwgcGFpZA==
 string|CHECKOUT_HISTORY_SCREEN_VOUCHERS_HISTORY_TAB_MOBILE|Vm91Y2hlcnM=
 string|CHECKOUT_SCREEN_CLOSE_CHECKOUT_BUTTON|Q2xvc2UgY2hlY2tvdXQ=
-string|CHECKOUT_SCREEN_CUSTOMER_TAB_LABEL|Q3VzdG9tZXIgZGV0YWlscw==
-string|CHECKOUT_SCREEN_DELIVERY_TAB_LABEL|RGVsaXZlcnk=
 string|CHECKOUT_SCREEN_DISCOUNTS_BUTTON|RGlzY291bnRz
-string|CHECKOUT_SCREEN_DRIVER_TAB_LABEL|RHJpdmVy
 string|CHECKOUT_SCREEN_GO_TO_MENU_BUTTON|R28gdG8gbWVudQ==
-string|CHECKOUT_SCREEN_ORDER_ITEMS_TAB_LABEL|T3JkZXIgaXRlbXMgKCUxJHMp
 string|CHECKOUT_SCREEN_ORDER_UPDATED_MESSAGE|T3JkZXIgdXBkYXRlZA==
 string|CHECKOUT_SCREEN_PAYMENT_AMOUNT_DUE_LABEL|QW1vdW50IGR1ZQ==
 string|CHECKOUT_SCREEN_PAYMENT_BAG_FEE_LABEL|QmFnIGZlZQ==
@@ -105,7 +101,6 @@ string|CHECKOUT_SCREEN_PAYMENT_SPLIT_HALF_BUTTON|MS8y
 string|CHECKOUT_SCREEN_PAYMENT_SPLIT_QUARTER_BUTTON|MS80
 string|CHECKOUT_SCREEN_PAYMENT_SPLIT_THIRD_BUTTON|MS8z
 string|CHECKOUT_SCREEN_PAYMENT_SUBTOTAL_LABEL|U3VidG90YWw=
-string|CHECKOUT_SCREEN_PAYMENT_TAB_LABEL|UGF5bWVudA==
 string|CHECKOUT_SCREEN_PAYMENT_TIPS_BUTTON|VGlwcw==
 string|CHECKOUT_SCREEN_PAYMENT_TIPS_LABEL|VGlwcw==
 string|CHECKOUT_SCREEN_PAYMENT_TOTAL_LABEL|VG90YWw=
@@ -245,7 +240,6 @@ string|KITCHEN_SCREEN_SPLIT_LABEL|U3BsaXQ=
 string|KITCHEN_SCREEN_TITLE|S0RT
 string|MANAGE_PRODUCTS_TITLE|TWFuYWdlIFByb2R1Y3Rz
 string|MANAGE_PROVIDERS_TITLE|TWFuYWdlIFByb3ZpZGVycw==
-string|NEW|TmV3
 string|OPEN_ORDERS_HISTORY_TITLE|T3BlbiBvcmRlcnM=
 string|ORDER_ADJUSTMENT_TYPE_BAG_FEE|QmFnIGZlZQ==
 string|ORDER_ADJUSTMENT_TYPE_DELIVERY_FEE|RGVsaXZlcnkgZmVl
@@ -415,7 +409,6 @@ string|WORKLOAD_BUTTON|V29ya2xvYWQ=
 string|add_columns|QWRkIGNvbHVtbnM=
 string|add_rows|QWRkIHJvd3M=
 string|add_tip|QWRkIFRpcA==
-string|add_to_order|QWRkIHRvIG9yZGVy
 string|address_1|QWRkcmVzcyAx
 string|address_2|QWRkcmVzcyAy
 string|address_3|QWRkcmVzcyAz
@@ -427,7 +420,6 @@ string|addresses|QWRkcmVzc2Vz
 string|adjust_difference|QWRqdXN0IGRpZmZlcmVuY2U=
 string|adjustment_amount|QWRqdXN0bWVudCBhbW91bnQ=
 string|adjust|QWRqdXN0
-string|all_fields_are_required|UGxlYXNlIG5vdGUgdGhhdCBhbGwgZmllbGRzIGFyZSByZXF1aXJlZC4=
 string|all_menu|QWxsIG1lbnU=
 string|allergens|QWxsZXJnZW5z
 string|all|QWxs
@@ -477,7 +469,6 @@ string|continue_without_payment|Q29udGludWUgd2l0aG91dCBwYXltZW50Pw==
 string|could_not_find_any_devices|Q291bGQgbm90IGZpbmQgYW55IGRldmljZXM=
 string|counter_pay|Q291bnRlciBwYXk=
 string|country|Q291bnRyeQ==
-string|custom_product|Q3VzdG9tIHByb2R1Y3Q=
 string|customer_blockedFormat|JE5BTUUkIC0gQmxvY2tlZA==
 string|custom|Q3VzdG9t
 string|dash|LQ==
@@ -535,6 +526,7 @@ string|full_address_is_required|QWRkcmVzcyBsaW5lIGlzIHJlcXVpcmVk
 string|full_address|RnVsbCBhZGRyZXNz
 string|general_active|QWN0aXZl
 string|general_address|QWRkcmVzcw==
+string|general_add|QWRk
 string|general_all|QWxs
 string|general_amountDue|QW1vdW50IGR1ZQ==
 string|general_amount|QW1vdW50
@@ -556,6 +548,7 @@ string|general_delete|RGVsZXRl
 string|general_done|RG9uZQ==
 string|general_email|RW1haWw=
 string|general_error_blockingOperation|UGxlYXNlIHdhaXQgZm9yIHRoZSBwcmV2aW91cyBvcGVyYXRpb24gdG8gY29tcGxldGU=
+string|general_error_emptyFields|UGxlYXNlIG5vdGUgdGhhdCBhbGwgZmllbGRzIGFyZSByZXF1aXJlZC4=
 string|general_error_orderAmount_discountAndRemainingText|VGhlIGRpc2NvdW50IG9yIHBheW1lbnQgYW1vdW50IGV4Y2VlZHMgdGhlIHRvdGFsIHZhbHVlIG9mIHRoZSBvcmRlci4gUGxlYXNlIGFkanVzdCB0aGUgZGlzY291bnQsIHBvaW50cywgb3IgcGF5bWVudCBieSBpc3N1aW5nIGEgZnVsbCBvciBwYXJ0aWFsIHJlZnVuZCwgb3IgaW5jcmVhc2UgdGhlIG9yZGVyIHZhbHVlIGJ5IGFkZGluZyBtb3JlIGl0ZW1zLg==
 string|general_error_orderAmount_discountAndRemainingTitle|RGlzY291bnQvcGF5bWVudCBhbW91bnQgaW52YWxpZA==
 string|general_error_orderAmount_discountText|VGhlIGFwcGxpZWQgZGlzY291bnQgYXBwZWFycyB0byBleGNlZWQgdGhlIG1heGltdW0gYWxsb3dlZC4gUGxlYXNlIGFkanVzdCB0aGUgZGlzY291bnQgb3IgcG9pbnRzIGFtb3VudCwgb3IgaW5jcmVhc2UgdGhlIG9yZGVyIHZhbHVlIGJ5IGFkZGluZyBtb3JlIGl0ZW1zLg==
@@ -754,6 +747,10 @@ string|orderCheckoutHistory_payments_typeRefund|UmVmdW5k
 string|orderCheckout_customerData_consumerDescription|T25saW5lIHVzZXIgd2hvIGNyZWF0ZWQgdGhlIG9yZGVyIG9yIHVzZXIgYXR0YWNoZWQgdG8gdGhlIG9yZGVyIGJ5IFFSIGNvZGUgc2Nhbm5pbmcgKGF2YWlsYWJsZSBpZiBwb2ludHMgZnVuY3Rpb25hbGl0eSBpcyBlbmFibGVkKQ==
 string|orderCheckout_customerData_consumerSection|T25saW5lIHVzZXI=
 string|orderCheckout_customerData_customerSection|Q3VzdG9tZXIgLyBEZWxpdmVyeSBkYXRhIA==
+string|orderCheckout_pageCustomer|Q3VzdG9tZXIgZGV0YWlscw==
+string|orderCheckout_pageDriver|RHJpdmVy
+string|orderCheckout_pageItems|T3JkZXIgaXRlbXMgKCRDT1VOVCQp
+string|orderCheckout_pagePayment|UGF5bWVudA==
 string|orderCheckout_payment_payAmountZero|RW50ZXIgdGhlIGFtb3VudCB0byBiZSBwYWlk
 string|orderConsumer_address_locationHint|VGhlIG1hcmtlciBsb2NhdGlvbiBpcyBub3QgdXBkYXRlZCB3aGlsZSBjaGFuZ2luZyB0aGUgYWRkcmVzcyBtYW51YWxseS4gVXNlIGF1dG9tYXRpYyBzZWFyY2ggdG8gdXBkYXRlIHRoZSBsb2NhdGlvbi4=
 string|orderConsumer_address_locationMarker|SGVyZQ==
@@ -780,6 +777,11 @@ string|orderConsumer_points_useLabel|VXNlIHBvaW50cw==
 string|orderConsumer_points_useRule1|TWluIHBvaW50cyB1c2FnZTogJFBPSU5UUyQgKCRBTU9VTlQkKQ==
 string|orderConsumer_points_useRule2|TWluIHRvdGFsIGFtb3VudDogJEFNT1VOVCQ=
 string|orderConsumer_scan_message|V2FpdGluZyB0byBzY2Fu
+string|orderCustomProduct_addToOrder|QWRkIHRvIG9yZGVy
+string|orderCustomProduct_name|UHJvZHVjdCBuYW1l
+string|orderCustomProduct_price|UHJpY2U=
+string|orderCustomProduct_quantity|UXVhbnRpdHk=
+string|orderCustomProduct_screenTitle|Q3VzdG9tIHByb2R1Y3Q=
 string|orderDetails_cookNow|Q29vayBub3c=
 string|orderDetails_negativeOrderBtn|UmV0cm9hY3RpdmUgcmVmdW5k
 string|orderDetails_onlineRefundBtn|T25saW5lIGZ1bGwgcmVmdW5k
@@ -901,11 +903,9 @@ string|possible_allergens|UG9zc2libGUgYWxsZXJnZW5z
 string|postcode|UG9zdGNvZGU=
 string|pos|UE9T
 string|prep_screen_services|UHJlcCBzY3JlZW4gc2VydmljZXM=
-string|price|UHJpY2U=
 string|print_last|UHJpbnQgbGFzdA==
 string|print|UHJpbnQ=
 string|proceed|UHJvY2VlZA==
-string|product_name|UHJvZHVjdCBuYW1l
 string|product_note|UHJvZHVjdCBub3Rl
 string|productsSettings_snoozeDurationOption|U25vb3plIGR1cmF0aW9u
 string|productsSettings_snoozeDurationTitle|U25vb3plIGR1cmF0aW9u
@@ -916,7 +916,6 @@ string|profile_shift_default|U2hpZnQgbm90IHN0YXJ0ZWQ=
 string|profile_shift_progress|U2hpZnQgaW4gcHJvZ3Jlc3M=
 string|providersReport_title|Q2hhbm5lbCBicmVha2Rvd24=
 string|providersReport_total|VG90YWw=
-string|quantity|UXVhbnRpdHk=
 string|reason|UmVhc29u
 string|reduce_columns|UmVkdWNlIGNvbHVtbnM=
 string|reduce_rows|UmVkdWNlIHJvd3M=
