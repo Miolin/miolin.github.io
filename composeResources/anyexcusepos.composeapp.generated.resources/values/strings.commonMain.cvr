@@ -352,7 +352,6 @@ string|collection|Q29sbGVjdGlvbg==
 string|contents|Q29udGVudHM=
 string|continue_label|Q29udGludWU=
 string|continue_without_payment|Q29udGludWUgd2l0aG91dCBwYXltZW50Pw==
-string|could_not_find_any_devices|Q291bGQgbm90IGZpbmQgYW55IGRldmljZXM=
 string|counter_pay|Q291bnRlciBwYXk=
 string|country|Q291bnRyeQ==
 string|customer_blockedFormat|JE5BTUUkIC0gQmxvY2tlZA==
@@ -362,8 +361,9 @@ string|delete|RGVsZXRl
 string|delivery_details|RGVsaXZlcnkgZGV0YWlscw==
 string|description|RGVzY3JpcHRpb24=
 string|details|RGV0YWlscw==
-string|device_options_description|SW4gb3JkZXIgdG8gdXNlIGxvZ2luIHRocm91Z2ggb25seSBwaW4geW91IG5lZWQgdG8gY29uZmlndXJlIGEgZGV2aWNlLiBJZiB5b3Ugd291bGQgbGlrZSB0byBsb2dpbiB3aXRoIHBob25lIGFuZCBwaW4gdGhlbiBjbGljayBwcm9jZWVkLg==
-string|devices|RGV2aWNlcw==
+string|deviceSelect_emptySubtitle|SW4gb3JkZXIgdG8gdXNlIGxvZ2luIHRocm91Z2ggb25seSBwaW4geW91IG5lZWQgdG8gY29uZmlndXJlIGEgZGV2aWNlLiBJZiB5b3Ugd291bGQgbGlrZSB0byBsb2dpbiB3aXRoIHBob25lIGFuZCBwaW4gdGhlbiBjbGljayBwcm9jZWVkLg==
+string|deviceSelect_emptyTitle|Q291bGQgbm90IGZpbmQgYW55IGRldmljZXM=
+string|deviceSelect_screenTitle|RGV2aWNlcw==
 string|device|RGV2aWNl
 string|difference|RGlmZmVyZW5jZQ==
 string|done|RG9uZQ==
@@ -403,7 +403,6 @@ string|eircode_is_required|UG9zdGNvZGUgaXMgcmVxdWlyZWQ=
 string|eircode_required|RWlyY29kZSBpcyByZXF1aXJlZA==
 string|email_address|RW1haWwgYWRkcmVzcw==
 string|end_of_day|RW5kIG9mIGRheQ==
-string|enter_pin_code_to_log_in|RW50ZXIgUElOLWNvZGUgdG8gbG9nIGlu
 string|error_less_than_default_quantity|VGhlIHByb2R1Y3QgcXVhbnRpdHkgY291bGRcJ3QgYmUgbGVzcyB0aGFuIGRlZmF1bHQgcXVhbnRpdHkh
 string|external_orders|RXh0ZXJuYWwgb3JkZXJz
 string|featured|RmVhdHVyZWQ=
@@ -440,6 +439,7 @@ string|general_driver_setDriver|U2V0IGRyaXZlcg==
 string|general_email|RW1haWw=
 string|general_error_blockingOperation|UGxlYXNlIHdhaXQgZm9yIHRoZSBwcmV2aW91cyBvcGVyYXRpb24gdG8gY29tcGxldGU=
 string|general_error_emptyFields|UGxlYXNlIG5vdGUgdGhhdCBhbGwgZmllbGRzIGFyZSByZXF1aXJlZC4=
+string|general_error_loginFailed|TG9naW4gRmFpbGVk
 string|general_error_orderAmount_discountAndRemainingText|VGhlIGRpc2NvdW50IG9yIHBheW1lbnQgYW1vdW50IGV4Y2VlZHMgdGhlIHRvdGFsIHZhbHVlIG9mIHRoZSBvcmRlci4gUGxlYXNlIGFkanVzdCB0aGUgZGlzY291bnQsIHBvaW50cywgb3IgcGF5bWVudCBieSBpc3N1aW5nIGEgZnVsbCBvciBwYXJ0aWFsIHJlZnVuZCwgb3IgaW5jcmVhc2UgdGhlIG9yZGVyIHZhbHVlIGJ5IGFkZGluZyBtb3JlIGl0ZW1zLg==
 string|general_error_orderAmount_discountAndRemainingTitle|RGlzY291bnQvcGF5bWVudCBhbW91bnQgaW52YWxpZA==
 string|general_error_orderAmount_discountText|VGhlIGFwcGxpZWQgZGlzY291bnQgYXBwZWFycyB0byBleGNlZWQgdGhlIG1heGltdW0gYWxsb3dlZC4gUGxlYXNlIGFkanVzdCB0aGUgZGlzY291bnQgb3IgcG9pbnRzIGFtb3VudCwgb3IgaW5jcmVhc2UgdGhlIG9yZGVyIHZhbHVlIGJ5IGFkZGluZyBtb3JlIGl0ZW1zLg==
@@ -527,6 +527,7 @@ string|general_printType_auto3|QXV0bywgMyByZWNlaXB0cw==
 string|general_printType_disabled|RGlzYWJsZQ==
 string|general_printType_manual|TWFudWFsbHk=
 string|general_refund|UmVmdW5k
+string|general_retry|UmV0cnk=
 string|general_role|Um9sZQ==
 string|general_rowsLong|Um93cyBjb3VudA==
 string|general_rowsShort|Ug==
@@ -625,9 +626,14 @@ string|kitchen_stationSelector_title|UGxlYXNlIHNlbGVjdCBhIHN0YXRpb24=
 string|kitchen|S2l0Y2hlbg==
 string|line1_is_required|QWRkcmVzcyBpcyByZXF1aXJlZA==
 string|loginByPhone_error|UGhvbmUgb3IgUGluIGlzIGludmFsaWQ=
+string|loginByPhone_login|TG9naW4=
 string|loginByPhone_phoneHint|UGhvbmUgbnVtYmVyLCB3aXRoIGNvdW50cnkgcHJlZml4ICgzNTMgLyA0NCk=
 string|loginByPhone_pinHint|UGVyc29uYWwgUGlu
-string|login_failed|TG9naW4gRmFpbGVk
+string|loginByPhone_screenTitle|UE9T
+string|loginByPin_label|UElO
+string|loginByPin_phoneLoginButton|UGhvbmUgTG9naW4=
+string|loginByPin_phoneLoginDivider|b3I=
+string|loginByPin_screenTitle|RW50ZXIgUElOLWNvZGUgdG8gbG9nIGlu
 string|login|TG9naW4=
 string|logout_success|TG9nb3V0IHN1Y2Nlc3M=
 string|lorem|TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQ=
@@ -845,9 +851,7 @@ string|payment|UGF5bWVudA==
 string|pay|UGF5
 string|permission_denied|UGVybWlzc2lvbiByZXF1ZXN0IHdhcyBkZW5pZWQ=
 string|phone_is_required|UGhvbmUgaXMgcmVxdWlyZWQ=
-string|phone_login|UGhvbmUgTG9naW4=
 string|phone_number|UGhvbmUgbnVtYmVy
-string|pin_code|UElO
 string|play|UGxheQ==
 string|plus|Kw==
 string|possible_allergens|UG9zc2libGUgYWxsZXJnZW5z
@@ -897,7 +901,6 @@ string|reports_providers|Q2hhbm5lbHMgUmVwb3J0IHwgJERBVEUk
 string|reports_sales|U2FsZXMgUmVwb3J0IHwgJERBVEUk
 string|reports_screenTitle|UmVwb3J0cw==
 string|required|cmVxdWlyZWQ=
-string|retry|UmV0cnk=
 string|sales|U2FsZXM=
 string|sale|U2FsZQ==
 string|save|U2F2ZQ==
@@ -1026,8 +1029,9 @@ string|venueConfig_preparationItemMode|UGFjayBzaW5nbGUgaXRlbXM=
 string|venueConfig_screenTitle|RWRpdCB2ZW51ZSBjb25maWc=
 string|venueConfig_supportAvailable|QWkgYXNzaXN0YW50
 string|venueConfig_waitingRoomAvailable|V2FpdGluZyByb29t
-string|venues_list_error_subtitle|UGxlYXNlIHVzZSB0aGUgYnV0dG9uIGJlbG93IHRvIHRyeSBhbmQgbG9hZCB0aGUgbGlzdCBhZ2Fpbi4gSWYgeW91IGdldCB0aGlzIGVycm9yIHJlcGVhdGVkbHkgcGxlYXNlIGNvbnRhY3QgeW91ciBicmFuZCBtYW5hZ2VyLg==
-string|venues_list_error_title|Q291bGQgbm90IGZpbmQgYW55IHZlbnVlcw==
+string|venueSelect_emptySubtitle|UGxlYXNlIHVzZSB0aGUgYnV0dG9uIGJlbG93IHRvIHRyeSBhbmQgbG9hZCB0aGUgbGlzdCBhZ2Fpbi4gSWYgeW91IGdldCB0aGlzIGVycm9yIHJlcGVhdGVkbHkgcGxlYXNlIGNvbnRhY3QgeW91ciBicmFuZCBtYW5hZ2VyLg==
+string|venueSelect_emptyTitle|Q291bGQgbm90IGZpbmQgYW55IHZlbnVlcw==
+string|venueSelect_screenTitle|VmVudWU=
 string|venues|VmVudWVz
 string|venue|VmVudWU=
 string|voucherCreate_finalize_balance|QmFsYW5jZQ==
