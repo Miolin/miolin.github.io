@@ -28,20 +28,32 @@
     </script>
     <script>
         // Управление экраном обновления
-        function showUpdateScreen() {
-            const overlay = document.getElementById('updateOverlay');
-            if (overlay) {
-                overlay.classList.add('visible');
-                console.log('Update screen shown');
-            }
+        function createUpdateOverlay() {
+            const overlay = document.createElement('div');
+            overlay.id = 'updateOverlay';
+            overlay.className = 'update-overlay';
+            
+            overlay.innerHTML = `
+                <img src="icons/icon-192x192.png" alt="Boss It Logo" class="update-logo">
+                <div class="update-spinner"></div>
+            `;
+            
+            return overlay;
         }
         
-        function hideUpdateScreen() {
-            const overlay = document.getElementById('updateOverlay');
-            if (overlay) {
-                overlay.classList.remove('visible');
-                console.log('Update screen hidden');
-            }
+        function showUpdateScreen() {
+            // Проверяем, что overlay еще не создан
+            if (document.getElementById('updateOverlay')) return;
+            
+            const overlay = createUpdateOverlay();
+            document.body.appendChild(overlay);
+            
+            // Небольшая задержка для плавной анимации
+            requestAnimationFrame(() => {
+                overlay.classList.add('visible');
+            });
+            
+            console.log('Update screen shown');
         }
         
         if ('serviceWorker' in navigator) {
@@ -106,13 +118,6 @@
     </script>
 </head>
 <body>
-    <!-- Экран обновления -->
-    <div id="updateOverlay" class="update-overlay">
-        <img src="icons/icon-192x192.png" alt="Boss It Logo" class="update-logo">
-        <div class="update-spinner"></div>
-        <div class="update-text">Обновление приложения...</div>
-    </div>
-    
     <!-- Основное приложение -->
     <canvas id="ComposeTarget"></canvas>
     <div id="components"></div>

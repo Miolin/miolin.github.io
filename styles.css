@@ -100,13 +100,11 @@ body {
     align-items: center;
     justify-content: center;
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
 .update-overlay.visible {
     opacity: 1;
-    visibility: visible;
 }
 
 .update-logo {
@@ -127,14 +125,6 @@ body {
     animation: spin 1s linear infinite;
 }
 
-.update-text {
-    color: #ffffff;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    margin-top: 20px;
-    text-align: center;
-}
 
 @keyframes spin {
     0% { transform: rotate(0deg); }

@@ -1,26 +1,16 @@
 importScripts('sw_config.js');
 importScripts('sw_cache_config.js');
 
-// Ключи для версионированного кэша критических файлов
-const CRITICAL_CACHE = `critical-${CACHE_NAME}`;
-
 self.addEventListener('install', (event) => {
   console.log(`SW:install:${CACHE_NAME}`);
   event.waitUntil(
-    Promise.all([
-      // Кэшируем обычные ресурсы
-      caches.open(CACHE_NAME).then((cache) => {
-        return cache.addAll(SW_CACHE_URLS);
-      }),
-      // Кэшируем критические файлы с версионированием
-      caches.open(CRITICAL_CACHE).then((cache) => {
-        return Promise.all([
-          cache.add(new Request('/', { cache: 'no-cache' })),
-          cache.add(new Request('/index.html', { cache: 'no-cache' })),
-          cache.add(new Request('/sw_config.js', { cache: 'no-cache' }))
-        ]);
-      })
-    ])
+    caches.open(CACHE_NAME).then((cache) => {
+      // Мапим строки в Request объекты с no-cache
+      const requests = SW_CACHE_URLS.map(url => 
+        new Request(url, { cache: 'no-cache' })
+      );
+      return cache.addAll(requests);
+    })
   );
   // Убираем автоматический skipWaiting - управляем через postMessage
 });
@@ -31,8 +21,8 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((keyList) => {
       return Promise.all(
         keyList.map((key) => {
-          // Удаляем старые кэши, но сохраняем текущие
-          if (key.includes('pos-cache') && key !== CACHE_NAME && key !== CRITICAL_CACHE) {
+          // Удаляем старые кэши, но сохраняем текущий
+          if (key.includes('pos-cache') && key !== CACHE_NAME) {
             console.log(`SW:deleting old cache: ${key}`);
             return caches.delete(key);
           }
@@ -46,7 +36,7 @@ self.addEventListener('activate', (event) => {
 // Проверяет совместимость версий
 async function isVersionCompatible() {
   try {
-    const stored = await caches.match(new Request('/sw_config.js'), { cacheName: CRITICAL_CACHE });
+    const stored = await caches.match(new Request('/sw_config.js'));
     if (!stored) return false;
     
     const storedText = await stored.text();
@@ -76,13 +66,13 @@ async function criticalFileStrategy(request) {
     try {
       const response = await fetch(request, { cache: 'no-cache' });
       if (response.ok) {
-        const cache = await caches.open(CRITICAL_CACHE);
+        const cache = await caches.open(CACHE_NAME);
         cache.put(request, response.clone());
       }
       return response;
     } catch (error) {
       // Если сеть недоступна, возвращаем старую версию с предупреждением
-      const cachedResponse = await caches.match(request, { cacheName: CRITICAL_CACHE });
+      const cachedResponse = await caches.match(request);
       if (cachedResponse) {
         console.warn('SW:serving potentially incompatible cached version due to network error');
         return cachedResponse;
@@ -92,7 +82,7 @@ async function criticalFileStrategy(request) {
   }
   
   // Если версии совместимы, используем обычный network-first
-  return networkFirst(request, CRITICAL_CACHE);
+  return networkFirst(request);
 }
 
 async function cacheFirst(request) {
@@ -106,16 +96,14 @@ async function cacheFirst(request) {
   return response;
 }
 
-async function networkFirst(request, cacheNameOverride = CACHE_NAME) {
+async function networkFirst(request) {
   try {
     const response = await fetch(request, { cache: 'no-store' });
-    const cache = await caches.open(cacheNameOverride);
+    const cache = await caches.open(CACHE_NAME);
     cache.put(request, response.clone());
     return response;
   } catch (error) {
-    const cachedResponse = await caches.match(request, { 
-      cacheName: cacheNameOverride 
-    });
+    const cachedResponse = await caches.match(request);
     if (cachedResponse) {
       return cachedResponse;
     }
@@ -143,7 +131,7 @@ self.addEventListener('fetch', (event) => {
     url.pathname.includes('sw_config.js') ||
     url.pathname.includes('sw_cache_config.js')
   ) {
-    event.respondWith(networkFirst(request, CRITICAL_CACHE));
+    event.respondWith(networkFirst(request));
     return;
   }
 
