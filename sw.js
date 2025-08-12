@@ -63,6 +63,13 @@ self.addEventListener('fetch', (event) => {
     }
   }
 
+  if (url.pathname.includes(RESOURCES_PATH_PART)) {
+    const newUrl = request.url + RESOURCES_VERSION_QUERY;
+    const newRequest = new Request(newUrl, request);
+    event.respondWith(cacheFirst(newRequest));
+    return;
+  }
+
   if (SW_CACHE_URLS.includes(url.pathname)) {
     if (url.pathname.includes('index.html') || url.pathname.includes('version.js')) {
       event.respondWith(networkFirst(request));
