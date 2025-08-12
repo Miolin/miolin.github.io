@@ -112,7 +112,7 @@ self.addEventListener('fetch', (event) => {
     url.pathname.includes('index.html') ||
     url.pathname === '/'
   ) {
-    event.respondWith(criticalFileStrategy(request));
+    event.respondWith(networkFirst(request));
     return;
   }
 
