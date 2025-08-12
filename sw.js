@@ -5,7 +5,7 @@ self.addEventListener('install', (event) => {
   console.log(`SW:install:${CACHE_NAME}`);
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      const requests = SW_CACHE_URLS.map(url => 
+      const requests = SW_CACHE_URLS.map(url =>
         new Request(url, { cache: 'no-cache' })
       );
       return cache.addAll(requests);
@@ -34,12 +34,12 @@ async function isVersionCompatible() {
   try {
     const stored = await caches.match(new Request('/sw_config.js'));
     if (!stored) return false;
-    
+
     const storedText = await stored.text();
     const storedCacheName = storedText.match(/const CACHE_NAME = '([^']+)'/)?.[1];
-    
+
     console.log(`SW:version check - stored: ${storedCacheName}, current: ${CACHE_NAME}`);
-    
+
     return storedCacheName === CACHE_NAME;
   } catch (error) {
     console.log('SW:version check failed:', error);
@@ -50,12 +50,12 @@ async function isVersionCompatible() {
 async function criticalFileStrategy(request) {
   const url = new URL(request.url);
   console.log(`SW:critical file request: ${url.pathname}`);
-  
+
   const compatible = await isVersionCompatible();
-  
+
   if (!compatible) {
     console.log('SW:version incompatible, forcing network');
-    
+
     try {
       const response = await fetch(request, { cache: 'no-cache' });
       if (response.ok) {
@@ -72,7 +72,7 @@ async function criticalFileStrategy(request) {
       throw error;
     }
   }
-  
+
   return networkFirst(request);
 }
 
@@ -106,7 +106,7 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
-  console.log(`SW:fetch:${CACHE_NAME} - ${url.pathname}`);
+//  console.log(`SW:fetch:${CACHE_NAME} - ${url.pathname}`);
 
   if (
     url.pathname.includes('index.html') ||
@@ -122,13 +122,6 @@ self.addEventListener('fetch', (event) => {
   ) {
     event.respondWith(networkFirst(request));
     return;
-  }
-
-  if (SW_DYNAMIC_WASM_CACHE) {
-    if (url.pathname.includes('.wasm')) {
-      event.respondWith(cacheFirst(request));
-      return;
-    }
   }
 
   if (url.pathname.includes(RESOURCES_PATH_PART)) {

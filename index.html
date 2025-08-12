@@ -21,90 +21,87 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="KDS">
-    <script src="version.js"></script>
+    <script type="application/javascript" src="composeApp-2.51.3-175-1755037585833.js"></script>
     <script>
-        document.write(`<script type="application/javascript" src="composeApp-${APP_VERSION}.js"><\/script>`);
-    </script>
-    <script>
-        function createUpdateOverlay() {
-            const overlay = document.createElement('div');
-            overlay.id = 'updateOverlay';
-            overlay.className = 'update-overlay';
-            
-            overlay.innerHTML = `
-                <img src="icons/icon-192x192.png" alt="Boss It Logo" class="update-logo">
-                <div class="update-spinner"></div>
-            `;
-            
-            return overlay;
-        }
-        
-        function showUpdateScreen() {
-            if (document.getElementById('updateOverlay')) return;
-            
-            const overlay = createUpdateOverlay();
-            document.body.appendChild(overlay);
-            
-            requestAnimationFrame(() => {
-                overlay.classList.add('visible');
-            });
-            
-            console.log('Update screen shown');
-        }
-        
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registration successful');
-                        
-                        registration.addEventListener('updatefound', () => {
-                            const newWorker = registration.installing;
-                            console.log('New service worker found');
-                            
-                            if (navigator.serviceWorker.controller) {
-                                showUpdateScreen();
-                            }
-                            
-                            newWorker.addEventListener('statechange', () => {
-                                console.log(`SW state changed: ${newWorker.state}`);
-                                
-                                if (newWorker.state === 'installed') {
-                                    if (navigator.serviceWorker.controller) {
-                                        console.log('New service worker installed, activating...');
-                                        newWorker.postMessage({ type: 'SKIP_WAITING' });
-                                    } else {
-                                        console.log('Service worker installed for the first time');
-                                    }
+    function createUpdateOverlay() {
+        const overlay = document.createElement('div');
+        overlay.id = 'updateOverlay';
+        overlay.className = 'update-overlay';
+
+        overlay.innerHTML = `
+            <img src="icons/icon-192x192.png" alt="Boss It Logo" class="update-logo">
+            <div class="update-spinner"></div>
+        `;
+
+        return overlay;
+    }
+
+    function showUpdateScreen() {
+        if (document.getElementById('updateOverlay')) return;
+
+        const overlay = createUpdateOverlay();
+        document.body.appendChild(overlay);
+
+        requestAnimationFrame(() => {
+            overlay.classList.add('visible');
+        });
+
+        console.log('Update screen shown');
+    }
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    console.log('ServiceWorker registration successful');
+
+                    registration.addEventListener('updatefound', () => {
+                        const newWorker = registration.installing;
+                        console.log('New service worker found');
+
+                        if (navigator.serviceWorker.controller) {
+                            showUpdateScreen();
+                        }
+
+                        newWorker.addEventListener('statechange', () => {
+                            console.log(`SW state changed: ${newWorker.state}`);
+
+                            if (newWorker.state === 'installed') {
+                                if (navigator.serviceWorker.controller) {
+                                    console.log('New service worker installed, activating...');
+                                    newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                } else {
+                                    console.log('Service worker installed for the first time');
                                 }
-                            });
+                            }
                         });
-                        
-                        let refreshing = false;
-                        navigator.serviceWorker.addEventListener('controllerchange', () => {
-                            if (refreshing) return;
-                            refreshing = true;
-                            console.log('New service worker activated, reloading page...');
-                            
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 500);
-                        });
-                    })
-                    .catch(err => {
-                        console.log('ServiceWorker registration failed: ', err);
                     });
-            });
-        }
-        
-        window.addEventListener('online', () => {
-            console.log('App is online');
+
+                    let refreshing = false;
+                    navigator.serviceWorker.addEventListener('controllerchange', () => {
+                        if (refreshing) return;
+                        refreshing = true;
+                        console.log('New service worker activated, reloading page...');
+
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 500);
+                    });
+                })
+                .catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
         });
-        
-        window.addEventListener('offline', () => {
-            console.log('App is offline');
-        });
-    </script>
+    }
+
+    window.addEventListener('online', () => {
+        console.log('App is online');
+    });
+
+    window.addEventListener('offline', () => {
+        console.log('App is offline');
+    });
+</script>
 </head>
 <body>
     <canvas id="ComposeTarget"></canvas>
