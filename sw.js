@@ -15,7 +15,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((keyList) => {
       return Promise.all(
         keyList.map((key) => {
-          if (key !== CACHE_NAME) {
+          if (key !== CACHE_NAME && key.includes('pos-cache')) {
             return caches.delete(key);
           }
         })
