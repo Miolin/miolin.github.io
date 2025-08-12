@@ -64,7 +64,11 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (SW_CACHE_URLS.includes(url.pathname)) {
-    event.respondWith(cacheFirst(request));
+    if (url.pathname.includes('index.html') || url.pathname.includes('version.js')) {
+      event.respondWith(networkFirst(request));
+    } else {
+      event.respondWith(cacheFirst(request));
+    }
     return;
   }
 
