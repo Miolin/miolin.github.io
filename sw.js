@@ -2,6 +2,7 @@ importScripts('sw_config.js');
 importScripts('sw_cache_config.js');
 
 self.addEventListener('install', (event) => {
+  console.log(`SW:install:${CACHE_NAME}`);
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(SW_CACHE_URLS);
@@ -11,6 +12,7 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
+  console.log(`SW:activate:${CACHE_NAME}`);
   event.waitUntil(
     caches.keys().then((keyList) => {
       return Promise.all(
@@ -55,6 +57,9 @@ async function networkFirst(request) {
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
+
+  console.log(`SW:fetch:${CACHE_NAME}`);
+  console.log(`SW:fetch:${url}`);
 
   if (
     url.pathname.includes('index.html') ||
