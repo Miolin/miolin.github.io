@@ -1,0 +1,1 @@
+const CACHE_NAME = 'pos-cache-v2.51.2-170-1755000379625';
