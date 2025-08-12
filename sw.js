@@ -56,6 +56,13 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
+  if (
+    url.pathname.includes('index.html') ||
+    url.pathname === '/'
+  ) {
+    return;
+  }
+
   if (SW_DYNAMIC_WASM_CACHE) {
     if (url.pathname.includes('.wasm')) {
       event.respondWith(cacheFirst(request));
