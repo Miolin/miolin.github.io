@@ -1,3 +1,3 @@
-const CACHE_NAME = 'pos-cache-v2.51.3-175-1755016128332';
+const CACHE_NAME = 'pos-cache-v2.51.3-175-1755016674644';
 const RESOURCES_PATH_PART = 'composeResources/bossitpos.composeapp.generated.resources';
-const RESOURCES_VERSION_QUERY = '?v=2.51.3-175-1755016128332';
+const RESOURCES_VERSION_QUERY = '?v=2.51.3-175-1755016674644';

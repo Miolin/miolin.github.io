@@ -23,17 +23,16 @@
     <meta name="apple-mobile-web-app-title" content="KDS">
     <script src="version.js"></script>
     <script>
-        document.write(`<script type="application/javascript" src="composeApp-${APP_VERSION}.js"><\/script>`);
-    </script>
-    <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')
                     .then(registration => {
                         console.log('ServiceWorker registration successful');
+                        document.write(`<script type="application/javascript" src="composeApp-${APP_VERSION}.js"><\/script>`);
                     })
                     .catch(err => {
                         console.log('ServiceWorker registration failed: ', err);
+                        document.write(`<script type="application/javascript" src="composeApp-${APP_VERSION}.js"><\/script>`);
                     });
             });
         }
