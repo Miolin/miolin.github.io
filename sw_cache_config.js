@@ -106,12 +106,15 @@ const SW_CACHE_URLS = [
 '/composeResources/bossitpos.composeapp.generated.resources/font/archivo_semi_bold_italic.ttf',
 '/composeResources/bossitpos.composeapp.generated.resources/font/archivo_light.ttf',
 '/composeResources/bossitpos.composeapp.generated.resources/font/archivo_extra_bold.ttf',
+'/composeApp-2.51.3-174.js',
+'/composeApp-2.51.3-174.js.map',
+'/3c3c70c00f6132edcf9f.wasm',
 '/index.html',
 '/styles.css',
 '/mapbox_utils.js',
 '/sw_config.js',
 '/version.js',
-'/9bbc13d66901fcbcddd4.wasm',
+'/composeApp-2.51.3-174.js.LICENSE.txt',
 '/icons/icon-192x192.png',
 '/icons/icon-256x256.png',
 '/icons/icon-384x384.png',
@@ -123,11 +126,8 @@ const SW_CACHE_URLS = [
 '/icons/icon-144x144.png',
 '/icons/icon-128x128.png',
 '/manifest.json',
-'/composeApp-2.51.3-173.js.LICENSE.txt',
-'/composeApp-2.51.3-173.js.map',
 '/8bc1b48ee28fd6b51bb9.wasm',
 '/sw_cache_config.js',
-'/composeApp-2.51.3-173.js',
 ];
 
 const SW_DYNAMIC_WASM_CACHE = false;

@@ -1,1 +1,1 @@
-const CACHE_NAME = 'pos-cache-v2.51.3-173';
+const CACHE_NAME = 'pos-cache-v2.51.3-174';
