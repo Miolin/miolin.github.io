@@ -22,7 +22,7 @@ self.addEventListener('install', (event) => {
       })
     ])
   );
-  self.skipWaiting();
+  // Убираем автоматический skipWaiting - управляем через postMessage
 });
 
 self.addEventListener('activate', (event) => {

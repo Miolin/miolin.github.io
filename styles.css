@@ -85,3 +85,63 @@ body {
     display: block;
     pointer-events: none;
 }
+
+/* Экран обновления */
+.update-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #161A1F;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.update-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.update-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    margin-bottom: 40px;
+    animation: logoFloat 2s ease-in-out infinite alternate;
+}
+
+.update-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(214, 67, 32, 0.3);
+    border-top: 3px solid #D64320;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.update-text {
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 20px;
+    text-align: center;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes logoFloat {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-10px); }
+}
