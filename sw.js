@@ -70,12 +70,13 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  if (url.pathname.includes('index.html') || url.pathname.includes('version.js') || url.pathname === '/') {
+    event.respondWith(networkFirst(request));
+    return;
+  }
+
   if (SW_CACHE_URLS.includes(url.pathname)) {
-    if (url.pathname.includes('index.html') || url.pathname.includes('version.js')) {
-      event.respondWith(networkFirst(request));
-    } else {
-      event.respondWith(cacheFirst(request));
-    }
+    event.respondWith(cacheFirst(request));
     return;
   }
 
