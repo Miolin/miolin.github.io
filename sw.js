@@ -1,12 +1,26 @@
 importScripts('sw_config.js');
 importScripts('sw_cache_config.js');
 
+// Ключи для версионированного кэша критических файлов
+const CRITICAL_CACHE = `critical-${CACHE_NAME}`;
+
 self.addEventListener('install', (event) => {
   console.log(`SW:install:${CACHE_NAME}`);
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(SW_CACHE_URLS);
-    })
+    Promise.all([
+      // Кэшируем обычные ресурсы
+      caches.open(CACHE_NAME).then((cache) => {
+        return cache.addAll(SW_CACHE_URLS);
+      }),
+      // Кэшируем критические файлы с версионированием
+      caches.open(CRITICAL_CACHE).then((cache) => {
+        return Promise.all([
+          cache.add(new Request('/', { cache: 'no-cache' })),
+          cache.add(new Request('/index.html', { cache: 'no-cache' })),
+          cache.add(new Request('/sw_config.js', { cache: 'no-cache' }))
+        ]);
+      })
+    ])
   );
   self.skipWaiting();
 });
@@ -17,7 +31,9 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((keyList) => {
       return Promise.all(
         keyList.map((key) => {
-          if (key !== CACHE_NAME && key.includes('pos-cache')) {
+          // Удаляем старые кэши, но сохраняем текущие
+          if (key.includes('pos-cache') && key !== CACHE_NAME && key !== CRITICAL_CACHE) {
+            console.log(`SW:deleting old cache: ${key}`);
             return caches.delete(key);
           }
         })
@@ -27,6 +43,57 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
+// Проверяет совместимость версий
+async function isVersionCompatible() {
+  try {
+    const stored = await caches.match(new Request('/sw_config.js'), { cacheName: CRITICAL_CACHE });
+    if (!stored) return false;
+    
+    const storedText = await stored.text();
+    // Парсим CACHE_NAME из формата: const CACHE_NAME = 'pos-cache-v2.51.3-175-1755022962559';
+    const storedCacheName = storedText.match(/const CACHE_NAME = '([^']+)'/)?.[1];
+    
+    console.log(`SW:version check - stored: ${storedCacheName}, current: ${CACHE_NAME}`);
+    
+    return storedCacheName === CACHE_NAME;
+  } catch (error) {
+    console.log('SW:version check failed:', error);
+    return false;
+  }
+}
+
+// Стратегия для критических файлов с проверкой версии
+async function criticalFileStrategy(request) {
+  const url = new URL(request.url);
+  console.log(`SW:critical file request: ${url.pathname}`);
+  
+  // Проверяем совместимость версий
+  const compatible = await isVersionCompatible();
+  
+  if (!compatible) {
+    console.log('SW:version incompatible, forcing network');
+    // Принудительно загружаем из сети при несовместимости версий
+    try {
+      const response = await fetch(request, { cache: 'no-cache' });
+      if (response.ok) {
+        const cache = await caches.open(CRITICAL_CACHE);
+        cache.put(request, response.clone());
+      }
+      return response;
+    } catch (error) {
+      // Если сеть недоступна, возвращаем старую версию с предупреждением
+      const cachedResponse = await caches.match(request, { cacheName: CRITICAL_CACHE });
+      if (cachedResponse) {
+        console.warn('SW:serving potentially incompatible cached version due to network error');
+        return cachedResponse;
+      }
+      throw error;
+    }
+  }
+  
+  // Если версии совместимы, используем обычный network-first
+  return networkFirst(request, CRITICAL_CACHE);
+}
 
 async function cacheFirst(request) {
   const cachedResponse = await caches.match(request);
@@ -39,14 +106,16 @@ async function cacheFirst(request) {
   return response;
 }
 
-async function networkFirst(request) {
+async function networkFirst(request, cacheNameOverride = CACHE_NAME) {
   try {
     const response = await fetch(request, { cache: 'no-store' });
-    const cache = await caches.open(CACHE_NAME);
+    const cache = await caches.open(cacheNameOverride);
     cache.put(request, response.clone());
     return response;
   } catch (error) {
-    const cachedResponse = await caches.match(request);
+    const cachedResponse = await caches.match(request, { 
+      cacheName: cacheNameOverride 
+    });
     if (cachedResponse) {
       return cachedResponse;
     }
@@ -58,13 +127,23 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
-  console.log(`SW:fetch:${CACHE_NAME}`);
-  console.log(`SW:fetch:${url}`);
+  console.log(`SW:fetch:${CACHE_NAME} - ${url.pathname}`);
 
+  // Критические файлы - специальная стратегия с проверкой версий
   if (
     url.pathname.includes('index.html') ||
     url.pathname === '/'
   ) {
+    event.respondWith(criticalFileStrategy(request));
+    return;
+  }
+
+  // Service Worker конфиги - всегда из сети
+  if (
+    url.pathname.includes('sw_config.js') ||
+    url.pathname.includes('sw_cache_config.js')
+  ) {
+    event.respondWith(networkFirst(request, CRITICAL_CACHE));
     return;
   }
 
@@ -82,20 +161,18 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  if (
-    url.pathname.includes('index.html') ||
-    url.pathname.includes('sw_config.js') ||
-    url.pathname.includes('sw_cache_config.js') ||
-    url.pathname === '/'
-  ) {
-    event.respondWith(networkFirst(request));
-    return;
-  }
-
   if (SW_CACHE_URLS.includes(url.pathname)) {
     event.respondWith(cacheFirst(request));
     return;
   }
 
   return;
+});
+
+// Слушаем сообщения для управления обновлениями
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    console.log('SW:skip waiting requested');
+    self.skipWaiting();
+  }
 });

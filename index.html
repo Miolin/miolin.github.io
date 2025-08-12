@@ -23,6 +23,7 @@
     <meta name="apple-mobile-web-app-title" content="KDS">
     <script src="version.js"></script>
     <script>
+        // Загружаем основное приложение с версионированием
         document.write(`<script type="application/javascript" src="composeApp-${APP_VERSION}.js"><\/script>`);
     </script>
     <script>
@@ -31,12 +32,49 @@
                 navigator.serviceWorker.register('/sw.js')
                     .then(registration => {
                         console.log('ServiceWorker registration successful');
+                        
+                        // Обработка обновлений Service Worker
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            console.log('New service worker found');
+                            
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed') {
+                                    if (navigator.serviceWorker.controller) {
+                                        // Новая версия готова - автоматически активируем
+                                        console.log('New service worker installed, activating...');
+                                        newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                    } else {
+                                        // Первая установка
+                                        console.log('Service worker installed for the first time');
+                                    }
+                                }
+                            });
+                        });
+                        
+                        // Обработка активации нового Service Worker
+                        let refreshing = false;
+                        navigator.serviceWorker.addEventListener('controllerchange', () => {
+                            if (refreshing) return;
+                            refreshing = true;
+                            console.log('New service worker activated, reloading page...');
+                            window.location.reload();
+                        });
                     })
                     .catch(err => {
                         console.log('ServiceWorker registration failed: ', err);
                     });
             });
         }
+        
+        // Обработка офлайн/онлайн состояний
+        window.addEventListener('online', () => {
+            console.log('App is online');
+        });
+        
+        window.addEventListener('offline', () => {
+            console.log('App is offline');
+        });
     </script>
 </head>
 <body>
