@@ -86,7 +86,6 @@ body {
     pointer-events: none;
 }
 
-/* Экран обновления */
 .update-overlay {
     position: fixed;
     top: 0;

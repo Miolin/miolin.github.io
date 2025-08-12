@@ -5,14 +5,12 @@ self.addEventListener('install', (event) => {
   console.log(`SW:install:${CACHE_NAME}`);
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      // Мапим строки в Request объекты с no-cache
       const requests = SW_CACHE_URLS.map(url => 
         new Request(url, { cache: 'no-cache' })
       );
       return cache.addAll(requests);
     })
   );
-  // Убираем автоматический skipWaiting - управляем через postMessage
 });
 
 self.addEventListener('activate', (event) => {
@@ -21,7 +19,6 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((keyList) => {
       return Promise.all(
         keyList.map((key) => {
-          // Удаляем старые кэши, но сохраняем текущий
           if (key.includes('pos-cache') && key !== CACHE_NAME) {
             console.log(`SW:deleting old cache: ${key}`);
             return caches.delete(key);
@@ -33,14 +30,12 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Проверяет совместимость версий
 async function isVersionCompatible() {
   try {
     const stored = await caches.match(new Request('/sw_config.js'));
     if (!stored) return false;
     
     const storedText = await stored.text();
-    // Парсим CACHE_NAME из формата: const CACHE_NAME = 'pos-cache-v2.51.3-175-1755022962559';
     const storedCacheName = storedText.match(/const CACHE_NAME = '([^']+)'/)?.[1];
     
     console.log(`SW:version check - stored: ${storedCacheName}, current: ${CACHE_NAME}`);
@@ -52,17 +47,15 @@ async function isVersionCompatible() {
   }
 }
 
-// Стратегия для критических файлов с проверкой версии
 async function criticalFileStrategy(request) {
   const url = new URL(request.url);
   console.log(`SW:critical file request: ${url.pathname}`);
   
-  // Проверяем совместимость версий
   const compatible = await isVersionCompatible();
   
   if (!compatible) {
     console.log('SW:version incompatible, forcing network');
-    // Принудительно загружаем из сети при несовместимости версий
+    
     try {
       const response = await fetch(request, { cache: 'no-cache' });
       if (response.ok) {
@@ -71,7 +64,6 @@ async function criticalFileStrategy(request) {
       }
       return response;
     } catch (error) {
-      // Если сеть недоступна, возвращаем старую версию с предупреждением
       const cachedResponse = await caches.match(request);
       if (cachedResponse) {
         console.warn('SW:serving potentially incompatible cached version due to network error');
@@ -81,7 +73,6 @@ async function criticalFileStrategy(request) {
     }
   }
   
-  // Если версии совместимы, используем обычный network-first
   return networkFirst(request);
 }
 
@@ -117,7 +108,6 @@ self.addEventListener('fetch', (event) => {
 
   console.log(`SW:fetch:${CACHE_NAME} - ${url.pathname}`);
 
-  // Критические файлы - специальная стратегия с проверкой версий
   if (
     url.pathname.includes('index.html') ||
     url.pathname === '/'
@@ -126,7 +116,6 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Service Worker конфиги - всегда из сети
   if (
     url.pathname.includes('sw_config.js') ||
     url.pathname.includes('sw_cache_config.js')
@@ -157,7 +146,6 @@ self.addEventListener('fetch', (event) => {
   return;
 });
 
-// Слушаем сообщения для управления обновлениями
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     console.log('SW:skip waiting requested');

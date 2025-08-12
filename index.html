@@ -23,11 +23,9 @@
     <meta name="apple-mobile-web-app-title" content="KDS">
     <script src="version.js"></script>
     <script>
-        // Загружаем основное приложение с версионированием
         document.write(`<script type="application/javascript" src="composeApp-${APP_VERSION}.js"><\/script>`);
     </script>
     <script>
-        // Управление экраном обновления
         function createUpdateOverlay() {
             const overlay = document.createElement('div');
             overlay.id = 'updateOverlay';
@@ -42,13 +40,11 @@
         }
         
         function showUpdateScreen() {
-            // Проверяем, что overlay еще не создан
             if (document.getElementById('updateOverlay')) return;
             
             const overlay = createUpdateOverlay();
             document.body.appendChild(overlay);
             
-            // Небольшая задержка для плавной анимации
             requestAnimationFrame(() => {
                 overlay.classList.add('visible');
             });
@@ -62,12 +58,10 @@
                     .then(registration => {
                         console.log('ServiceWorker registration successful');
                         
-                        // Обработка обновлений Service Worker
                         registration.addEventListener('updatefound', () => {
                             const newWorker = registration.installing;
                             console.log('New service worker found');
                             
-                            // Показываем экран обновления сразу при обнаружении
                             if (navigator.serviceWorker.controller) {
                                 showUpdateScreen();
                             }
@@ -77,25 +71,21 @@
                                 
                                 if (newWorker.state === 'installed') {
                                     if (navigator.serviceWorker.controller) {
-                                        // Новая версия готова - автоматически активируем
                                         console.log('New service worker installed, activating...');
                                         newWorker.postMessage({ type: 'SKIP_WAITING' });
                                     } else {
-                                        // Первая установка
                                         console.log('Service worker installed for the first time');
                                     }
                                 }
                             });
                         });
                         
-                        // Обработка активации нового Service Worker
                         let refreshing = false;
                         navigator.serviceWorker.addEventListener('controllerchange', () => {
                             if (refreshing) return;
                             refreshing = true;
                             console.log('New service worker activated, reloading page...');
                             
-                            // Небольшая задержка для визуального эффекта
                             setTimeout(() => {
                                 window.location.reload();
                             }, 500);
@@ -107,7 +97,6 @@
             });
         }
         
-        // Обработка офлайн/онлайн состояний
         window.addEventListener('online', () => {
             console.log('App is online');
         });
@@ -118,7 +107,6 @@
     </script>
 </head>
 <body>
-    <!-- Основное приложение -->
     <canvas id="ComposeTarget"></canvas>
     <div id="components"></div>
 </body>
