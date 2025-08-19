@@ -134,3 +134,50 @@ body {
     0% { transform: translateY(0px); }
     100% { transform: translateY(-10px); }
 }
+
+/* Toast Message Styles */
+.toast-message {
+    /* Layout - wrap content with line clamping like Android maxLines */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5; /* Equivalent to maxLines = 5 in Android Compose */
+    
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    
+    /* Text handling */
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-word;
+    
+    /* Use CSS custom properties for dynamic theming */
+    background-color: var(--toast-bg, #4A4A4A);
+    color: var(--toast-text, #FFFFFF);
+    border: var(--toast-border-width, 1px) solid var(--toast-border, transparent);
+    border-radius: var(--toast-corner-radius, 8px);
+    min-height: var(--toast-min-height, 40px);
+    padding: var(--toast-padding-v, 10px) var(--toast-padding-h, 16px);
+    
+    /* Shadow/elevation effect */
+    box-shadow: 0 var(--toast-elevation, 2px) calc(var(--toast-elevation, 2px) * 2) rgba(0, 0, 0, 0.2);
+    
+    /* Override HtmlView sizing - force wrap content */
+    width: auto !important;
+    height: auto !important;
+    max-width: min(400px, 90vw); /* Reasonable max width */
+    max-height: none;
+    box-sizing: border-box;
+    
+    /* Transform HtmlView position from top-left to center-bottom */
+    transform: translate(-50%, -100%);
+    margin: 0 !important;
+    
+    /* Layout */
+    z-index: 1000;
+    
+    /* Smooth transitions */
+    transition: all 0.2s ease-in-out;
+}
