@@ -131,8 +131,10 @@ export class EscPosUsbConnector {
 
   async #initializeDevice(device) {
     this.log('initializeDevice');
-    await device.open();
+
     try {
+      await device.open();
+
       this.#dumpInterfaces(device);
 
       if (device.configuration == null) {
