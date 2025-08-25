@@ -19,8 +19,8 @@ export async function selectEscPosUsbDevice() {
   ];
 
   try {
-   // const device = await navigator.usb.requestDevice({ filters: [{}] })
-    const device = await navigator.usb.requestDevice({ filters });
+    const device = await navigator.usb.requestDevice({ filters: [{}] })
+//    const device = await navigator.usb.requestDevice({ filters });
     const label = [device.manufacturerName, device.productName].filter(Boolean).join(' ') || `SN_${device.serialNumber}`;
     return new EscPosDeviceFingerprint(
       device.vendorId,
@@ -133,6 +133,8 @@ export class EscPosUsbConnector {
     this.log('initializeDevice');
     await device.open();
     try {
+      this.#dumpInterfaces(device);
+
       if (device.configuration == null) {
         await device.selectConfiguration(1);
       }
@@ -143,6 +145,7 @@ export class EscPosUsbConnector {
       let outEp = null;
       //let outPacketSize = null;
 
+      this.log('initializeDevice find interface');
       if (configuration?.interfaces) {
         let found = false;
         for (const iface of configuration.interfaces) {
@@ -165,6 +168,7 @@ export class EscPosUsbConnector {
         throw new Error('No suitable interface with bulk OUT endpoint found.');
       }
 
+      this.log('initializeDevice claim interface');
       await device.claimInterface(chosenIface);
       if (chosenAlt?.alternateSetting != null) {
         await device.selectAlternateInterface(chosenIface, chosenAlt.alternateSetting);
@@ -179,8 +183,40 @@ export class EscPosUsbConnector {
       if (typeof this.#onConnected === 'function') this.#onConnected({ device });
       try { await this.send(new Uint8Array([0x1B, 0x40])); } catch {  }
     } catch (e) {
+      this.log('initializeDevice error');
+      try { this.log(`ERROR: ${e?.name || ''} ${e?.message || e}`); } catch {  }
       try { await device.close(); } catch {}
       throw e;
+    }
+  }
+
+  #dumpInterfaces(device) {
+    try {
+      const cfg = device.configuration;
+      if (!cfg) { this.log('No active USB configuration'); return; }
+
+      this.log(
+        `USB device: vid=0x${device.vendorId?.toString(16)} pid=0x${device.productId?.toString(16)} ` +
+        `${device.manufacturerName || ''} ${device.productName || ''} SN=${device.serialNumber || '-'}`
+      );
+      this.log(`Config ${cfg.configurationValue} has ${cfg.interfaces?.length || 0} interface(s)`);
+
+      for (const iface of cfg.interfaces || []) {
+        this.log(`iface ${iface.interfaceNumber}`);
+        let i = 0;
+        for (const alt of iface.alternates || []) {
+          const eps = (alt.endpoints || []).map(e =>
+            `ep#${e.endpointNumber} ${e.direction}/${e.type} size=${e.packetSize}`
+          ).join(', ');
+          this.log(
+            `  alt[${i++}] class=0x${(alt.interfaceClass ?? 0).toString(16)} ` +
+            `sub=0x${(alt.interfaceSubclass ?? 0).toString(16)} proto=0x${(alt.interfaceProtocol ?? 0).toString(16)} ` +
+            `-> [${eps || 'no endpoints'}]`
+          );
+        }
+      }
+    } catch (e) {
+      this.log(`dumpInterfaces error: ${e?.message || e}`);
     }
   }
 
